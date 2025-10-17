@@ -75,3 +75,113 @@ Content-Type: application/json
     }
 ]
 ```
+
+```json
+GET http://localhost:8080/socios/45990181000189
+Content-Type: application/json
+
+```
+
+## Exemplo de Resposta
+
+```json
+{
+    "cnpj": "33372251006278",
+    "nome": "IBM BRASIL - INDUSTRIA MAQUINA E SERVIÇO LTDA",
+    "participacao": 20.0,
+    "cep": "13186525",
+    "razaoSocial": "IBM BRASIL-INDUSTRIA MAQUINAS E SERVICOS LIMITADA",
+    "nomeFantasia": "",
+    "naturezaJuridica": "Sociedade Empresária Limitada",
+    "situacaoCadastral": "Ativa",
+    "mapaEmbedUrl": "https://www.google.com/maps?q=RODOVIA+JORNALISTA+FRANCISCO+AGUIRRE+PROENCA+S%2FN+KM+09%2C+CHACARAS+ASSAY%2C+Hortol%C3%A2ndia+-+SP%2C+13186-525%2C+Brasil&output=embed",
+    "estabelecimentos": [
+        {
+            "cnpj": "33372251006278",
+            "tipo": "Filial",
+            "nomeFantasia": "",
+            "situacaoCadastral": "Ativa",
+            "dataSituacaoCadastral": "2005-11-03",
+            "dataInicioAtividade": "1971-03-26",
+            "tipoLogradouro": "RODOVIA",
+            "logradouro": "JORNALISTA FRANCISCO AGUIRRE PROENCA",
+            "numero": "S/N",
+            "complemento": "KM    09",
+            "bairro": "CHACARAS ASSAY",
+            "cep": "13186525",
+            "cidade": "Hortolândia",
+            "cidadeIbgeId": 3519071,
+            "estadoSigla": "SP",
+            "estadoNome": "São Paulo",
+            "telefone1": "1121323053",
+            "telefone2": "",
+            "email": "ibmevoce@br.ibm.com",
+            "atividadePrincipal": {
+                "id": "4751201",
+                "secao": "G",
+                "divisao": "47",
+                "grupo": "47.5",
+                "classe": "47.51-2",
+                "subclasse": "4751-2/01",
+                "descricao": "Comércio varejista especializado de equipamentos e suprimentos de informática"
+            },
+            "atividadesSecundarias": [
+                {
+                    "id": "6203100",
+                    "secao": "J",
+                    "divisao": "62",
+                    "grupo": "62.0",
+                    "classe": "62.03-1",
+                    "subclasse": "6203-1/00",
+                    "descricao": "Desenvolvimento e licenciamento de programas de computador não customizáveis"
+                },
+                {
+                    "id": "6311900",
+                    "secao": "J",
+                    "divisao": "63",
+                    "grupo": "63.1",
+                    "classe": "63.11-9",
+                    "subclasse": "6311-9/00",
+                    "descricao": "Tratamento de dados, provedores de serviços de aplicação e serviços de hospedagem na Internet"
+                },
+                {
+                    "id": "6319400",
+                    "secao": "J",
+                    "divisao": "63",
+                    "grupo": "63.1",
+                    "classe": "63.19-4",
+                    "subclasse": "6319-4/00",
+                    "descricao": "Portais, provedores de conteúdo e outros serviços de informação na Internet"
+                },
+                {
+                    "id": "8220200",
+                    "secao": "N",
+                    "divisao": "82",
+                    "grupo": "82.2",
+                    "classe": "82.20-2",
+                    "subclasse": "8220-2/00",
+                    "descricao": "Atividades de teleatendimento"
+                },
+                {
+                    "id": "8630503",
+                    "secao": "Q",
+                    "divisao": "86",
+                    "grupo": "86.3",
+                    "classe": "86.30-5",
+                    "subclasse": "8630-5/03",
+                    "descricao": "Atividade médica ambulatorial restrita a consultas"
+                },
+                {
+                    "id": "8630599",
+                    "secao": "Q",
+                    "divisao": "86",
+                    "grupo": "86.3",
+                    "classe": "86.30-5",
+                    "subclasse": "8630-5/99",
+                    "descricao": "Atividades de atenção ambulatorial não especificadas anteriormente"
+                }
+            ]
+        }
+    ]
+}
+```
