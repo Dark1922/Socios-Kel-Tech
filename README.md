@@ -77,7 +77,7 @@ Content-Type: application/json
 ```
 
 ```json
-GET http://localhost:8080/socios/45990181000189
+GET http://localhost:8080/socios/33372251006278
 Content-Type: application/json
 
 ```
