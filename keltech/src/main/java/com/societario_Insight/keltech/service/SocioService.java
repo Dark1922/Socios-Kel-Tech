@@ -68,14 +68,46 @@ public class SocioService {
 
         String cep = receita.path("estabelecimento").path("cep").asText("");
 
+
+        JsonNode est = receita.path("estabelecimento");
+
+        String tipoLogradouro = est.path("tipo_logradouro").asText("");   // ex.: RODOVIA
+        String logradouro     = est.path("logradouro").asText("");        // ex.: ANHANGUERA KM 98
+        String numero         = est.path("numero").asText("");            // ex.: SN
+        String complemento    = est.path("complemento").asText("");       // ex.: KM 98
+        String bairro         = est.path("bairro").asText("");            // ex.: JARDIM EULINA
+        String cidade         = est.path("cidade").path("nome").asText("");// ex.: Campinas
+        String uf             = est.path("estado").path("sigla").asText("");// ex.: SP
+        String cepRaw         = est.path("cep").asText("");
+        String cepFmt         = formatCep(cepRaw);   // ex.: 13065900
+
+        List<String> linha1 = new ArrayList<>();
+        if (notBlank(tipoLogradouro)) linha1.add(tipoLogradouro);
+        if (notBlank(logradouro))     linha1.add(logradouro);
+        if (notBlank(numero) && !"SN".equalsIgnoreCase(numero.trim())) linha1.add(numero);
+        if (notBlank(complemento))    linha1.add(complemento.trim().replaceAll("\\s+", " "));
+
+        String enderecoCompleto = String.join(" ", linha1);
+
+        List<String> partes = new ArrayList<>();
+        if (notBlank(enderecoCompleto)) partes.add(enderecoCompleto);
+        if (notBlank(bairro))           partes.add(bairro);
+        if (notBlank(cidade) || notBlank(uf)) {
+            partes.add((notBlank(cidade) ? cidade : "") + (notBlank(uf) ? " - " + uf : ""));
+        }
+        if (notBlank(cepFmt))           partes.add(cepFmt);
+        partes.add("Brasil");
+
+        String address = String.join(", ", partes);
+
+        String mapaUrl = mapsUrlFromAddress(address);
+
         List<EstabelecimentoDTO> estabelecimentos = parseEstabelecimentos(receita);
 
         String naturezaJuridica = getText(receita, "natureza_juridica", "descricao");
 
         String nomeFantasia = estabelecimentos.isEmpty() ? "" : Optional.ofNullable(estabelecimentos.get(0).getNomeFantasia()).orElse("");
         String situacaoCadastral = estabelecimentos.isEmpty() ? "" : Optional.ofNullable(estabelecimentos.get(0).getSituacaoCadastral()).orElse("");
-
-        String mapaUrl = buildMapsEmbedUrl(cep);
 
         return SocioDetalheDTO.builder()
                 .cnpj(cnpjDigits)
@@ -95,10 +127,15 @@ public class SocioService {
         return s == null ? "" : s.replaceAll("\\D", "");
     }
 
-    private String buildMapsEmbedUrl(String cep) {
-        if (cep == null || cep.isBlank()) return "https://www.google.com/maps?output=embed";
-        return "https://www.google.com/maps?q=" + URLEncoder.encode(cep, StandardCharsets.UTF_8) + "&output=embed";
+
+    private String mapsUrlFromAddress(String address) {
+        if (address == null || address.isBlank()) {
+            return "https://www.google.com/maps?output=embed";
+        }
+        String q = URLEncoder.encode(address.trim(), StandardCharsets.UTF_8);
+        return "https://www.google.com/maps?q=" + q + "&output=embed";
     }
+
 
     private static String getText(JsonNode node, String... path) {
         JsonNode curr = node;
@@ -172,4 +209,20 @@ public class SocioService {
             return List.of(toEstabelecimento(est));
         }
     }
+
+
+    private static boolean notBlank(String s) {
+        return s != null && !s.isBlank();
+    }
+
+    private static String digits(String s) {
+        return s == null ? "" : s.replaceAll("\\D", "");
+    }
+
+    private static String formatCep(String cepDigits) {
+        if (cepDigits == null) return "";
+        String d = digits(cepDigits);
+        return d.length() == 8 ? d.substring(0,5) + "-" + d.substring(5) : d;
+    }
+
 }
