@@ -1,0 +1,19 @@
+server:
+  port: 8080
+
+app:
+  keltech:
+    base-url: https://keltech-test.wiremockapi.cloud/json
+  receita:
+    base-url: https://publica.cnpj.ws/cnpj
+  http:
+    connect-timeout-ms: 2000
+    read-timeout-ms: 3000
+    retry:
+      max-attempts: 3
+      backoff-ms: 200
+
+spring:
+  jackson:
+    deserialization:
+      fail-on-unknown-properties: false
